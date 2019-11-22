@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="zanzzd">
+
+
+
+
+
+<title>ESP8266开发记录 | </title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">zanzzd&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">posts</a>
+                
+                    <a class="menu-item" href="/category">categories</a>
+                
+                    <a class="menu-item" href="/tag">tag</a>
+                
+                    <a class="menu-item" href="/about">about</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">zanzzd&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">posts</a>
+                
+                    <a class="menu-item" href="/category">categories</a>
+                
+                    <a class="menu-item" href="/tag">tag</a>
+                
+                    <a class="menu-item" href="/about">about</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">ESP8266开发记录</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">zanzzd</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">十一月 23, 2019&nbsp;&nbsp;0:22:29</a>
+                        </span>
+                    
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h2 id="ESP8266开发记录"><a href="#ESP8266开发记录" class="headerlink" title="ESP8266开发记录"></a><strong>ESP8266开发记录</strong></h2><hr>
+<h2 id="基于安信可ESP8266一体化的SDK开发，使用NONOS-ESP8266-SDK开发"><a href="#基于安信可ESP8266一体化的SDK开发，使用NONOS-ESP8266-SDK开发" class="headerlink" title="基于安信可ESP8266一体化的SDK开发，使用NONOS_ESP8266_SDK开发"></a>基于安信可ESP8266一体化的SDK开发，使用NONOS_ESP8266_SDK开发</h2><blockquote>
+<p>书本存储位置为：OneDrive&gt;MedleyText&gt;rymZ2A48r</p>
+</blockquote>
+<h3 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h3><p>软件和硬件资料可参考乐鑫官网和安信可官网，选择文件和工具进行下载<br>乐鑫官网：<br>安信可官网：<a href="https://wiki.ai-thinker.com/" target="_blank" rel="noopener">https://wiki.ai-thinker.com/</a></p>
+<p><strong>准备硬件：</strong></p>
+<ul>
+<li>ESP8266最小系统开发板</li>
+</ul>
+<p><strong>准备软件：</strong></p>
+<ul>
+<li>SDK一体化开发环境</li>
+<li>烧录工具 ESP_DOWNLOAD_TOOL</li>
+<li>安信可串口调试助手</li>
+</ul>
+<p><strong>软件安装和配置：</strong><br>参考安信可一体化环境搭建和新建工程进行SP系列一体化软件的使用。<br>参考网址：<a href="https://wiki.ai-thinker.com/ai_ide_use" target="_blank" rel="noopener">https://wiki.ai-thinker.com/ai_ide_use</a></p>
+<h3 id="开发记录："><a href="#开发记录：" class="headerlink" title="开发记录："></a>开发记录：</h3><p><strong>1.串口输出字符</strong><br>调用系统打印函数，可以在系统初始化时候打印出用户需要打印的字符串。<br>例如打印系统版本：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">os_printf(<span class="string">"SDK version:%s\n"</span>, system_get_sdk_version());</span><br></pre></td></tr></table></figure>
+<p>在SDK开发中，用户自己的代码放在use_main.c–&gt;user_init()函数中。</p>
+<p><strong>2.使用串口输入字符</strong><br>串口函数存放于driver文件夹下，使用时需包含此文件夹下串口的头函数。头函数如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"driver/uart.h"</span></span></span><br></pre></td></tr></table></figure>
+<p>串口调用的步骤如下：</p>
+<ul>
+<li>初始化串口波特率</li>
+<li>调用串口打印函数<br>如下，串口波特率设置为9600，使用串口打印“hello world”字符。<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">uart_init(<span class="number">9600</span>, <span class="number">9600</span>);</span><br><span class="line">uart0_sendStr(<span class="string">"hello world"</span>);</span><br></pre></td></tr></table></figure>
+参考文档：esp8266_non_sdk_api_reference_cn.pdf中的串口部分。</li>
+</ul>
+<p><strong>3.系统延时函数</strong><br>可以调用系统延时函数    <code>os_delay_us</code> ，最大值为65535us。此延时函数精度不高，不能用于高精度延时的需求。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">os_delay_us</span><span class="params">(uint16 us)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>可以使用这个微秒级延时函数写出一个大致的毫秒级延时函数，代码如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> ICACHE_FLASH_ATTR <span class="title">delay_ms</span><span class="params">(u32 ms)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">for</span>(; ms&gt;<span class="number">0</span>; ms--)</span><br><span class="line">	&#123;</span><br><span class="line">		os_delay_us(<span class="number">1000</span>);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>4.看门狗</strong><br>由于基于NONOS开发，为了防止特殊情况发生，用户的程序如果需要执行时间超过500ms,为了防止esp8266重启，需要调用软件看门狗喂狗。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">system_soft_wdt_feed();</span><br></pre></td></tr></table></figure>
+<p>其他关于看门狗的函数：</p>
+<ul>
+<li>关闭软件看门狗：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">system_soft_wdt_stop();</span><br></pre></td></tr></table></figure>
+软件看门狗关闭时间超过5秒，将会触发硬件看门狗。</li>
+<li>重启软件看门狗：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">system_soft_wdt_restart();</span><br></pre></td></tr></table></figure>
+重启软件看门狗必须在看门狗关闭的条件下才是生效的。</li>
+</ul>
+<p><strong>5.GPIO</strong><br>ESP8266 的 16 个通⽤ IO 口。在编程时要区分开<code>管脚名称</code>、<code>管脚功能</code>和<code>管脚端口号</code>。</p>
+<ul>
+<li>管脚名称(<code>pin_name</code>)：一般表示为<code>“PERIPHS_IO_MUX_”+管脚名</code></li>
+<li>管脚功能（<code>FUNC</code>）：一般表示为<code>功能序号-1</code></li>
+<li>管脚端口号（<code>IO</code>）：一般为表示<code>GPIO_ID_PIN(IO端口序号)</code><br>GPIO主要讲述IO口输入、输出和中断。</li>
+</ul>
+<p><strong>5.1GPIO寄存器</strong><br>有关于GPIO各个寄存器介绍，参考乐鑫ESP8266技术参考手册（esp8266-technical_reference_cn.pdf）。</p>
+<p><strong>5.2特殊端口GPIO16介绍</strong><br>与其他 IO ⼝不同， GPIO16(XPD_DCDC) 不属于通⽤ GPIO 模块，它属于 RTC 模块，可以<br>⽤来在深度睡眠时候唤醒整个芯⽚，可以配置为输⼊或者输出模式，但⽆法触发 IO 中断。<br>进行GPIO16的操作时，必须包含<code>gpio16.h</code>这个头函数。</p>
+<ul>
+<li>将GPIO16配置为输出模式：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpio16_output_conf(<span class="keyword">void</span>);</span><br></pre></td></tr></table></figure></li>
+<li>GPIO16 输出⾼电平／低电平：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpio16_output_set(uint8 value);</span><br></pre></td></tr></table></figure></li>
+<li>将 GPIO16 配置为输⼊模式：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpio16_input_conf(<span class="keyword">void</span>);</span><br></pre></td></tr></table></figure></li>
+<li>读取 GPIO16 的输⼊电平状态：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpio16_input_get(<span class="keyword">void</span>);</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>5.3其他GPIO口</strong><br>以GPIO12（管脚名称为MTDI_U）为例，介绍GPIO的操作模式。<br><strong>5.3.1端口为输出模式：</strong></p>
+<ul>
+<li>（1）配置 MTDI 为 GPIO 模式：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PIN_FUNC_SELECT(PERIPHS_IO_MUX_MTDI_U,FUNC_GPIO12);</span><br></pre></td></tr></table></figure></li>
+<li>（2）配置 MTDI 输出⾼电平或者输出低电平：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GPIO_OUTPUT_SET(GPIO_ID_PIN(<span class="number">12</span>), <span class="number">1</span>); <span class="comment">//输出高电平</span></span><br><span class="line">GPIO_OUTPUT_SET(GPIO_ID_PIN(<span class="number">12</span>), <span class="number">0</span>); <span class="comment">//输出低电平</span></span><br></pre></td></tr></table></figure></li>
+<li>（3）使能 MTDI 上拉：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PIN_PULLUP_EN(PERIPHS_IO_MUX_MTDI_U);</span><br></pre></td></tr></table></figure></li>
+<li>（4）如果需要关闭内部上拉，使用下面语句：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PIN_PULLUP_DIS(PERIPHS_IO_MUX_MTDI_U);</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>5.3.2端口配置为输入模式：</strong></p>
+<ul>
+<li>（1）配置 MTDI 为 GPIO 模式：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PIN_FUNC_SELECT(PERIPHS_IO_MUX_MTDI_U,FUNC_GPIO12);</span><br></pre></td></tr></table></figure></li>
+<li>（2） 配置 MTDI 为输⼊模式：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GPIO_DIS_OUTPUT(GPIO_ID_PIN(<span class="number">12</span>));</span><br></pre></td></tr></table></figure></li>
+<li>（3）使能 MTDI 上拉：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PIN_PULLUP_EN(PERIPHS_IO_MUX_MTDI_U);</span><br></pre></td></tr></table></figure>
+如果带有硬件外部上拉，这条可以省略。</li>
+<li>（4）获取 MTDI 管脚的电平状态：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Uint8 level=<span class="number">0</span>;</span><br><span class="line">level=GPIO_INPUT_GET(GPIO_ID_PIN(<span class="number">12</span>));</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>5.3.3端口配置为中断模式：<br>在<code>gpio.h</code>中申明了一个<code>GPIO_INT_TYPE</code>结构体用于⽤来配置 GPIO 的中断触发⽅式。</p>
+<ul>
+<li>（1） 配置 MTDI 为 GPIO 模式：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PIN_FUNC_SELECT(PERIPHS_IO_MUX_MTDI_U,FUNC_GPIO12);</span><br></pre></td></tr></table></figure></li>
+<li>（2）配置 MTDI 为输⼊模式：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GPIO_DIS_OUTPUT(GPIO_ID_PIN(<span class="number">12</span>));</span><br></pre></td></tr></table></figure></li>
+<li>（3）禁⽌所有的 IO 中断：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ETS_GPIO_INTR_DISABLE();</span><br></pre></td></tr></table></figure></li>
+<li>（4）设置中断处理函数：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ETS_GPIO_INTR_ATTACH(GPIO_INTERRUPT,<span class="literal">NULL</span>);</span><br></pre></td></tr></table></figure></li>
+<li>（5）配置 MTDI 为下降沿中断触发的⽅式：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpio_pin_intr_state_set(GPIO_ID_PIN(<span class="number">12</span>),GPIO_PIN_INTR_NEGEDGE);</span><br></pre></td></tr></table></figure>
+其中，中断触发模式有以下几种：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">GPIO_PIN_INTR_DISABLE     <span class="comment">//0，该端口禁止中断</span></span><br><span class="line">GPIO_PIN_INTR_POSEDGE     <span class="comment">//1，上升沿触发中断</span></span><br><span class="line">GPIO_PIN_INTR_NEGEDGE     <span class="comment">//2，下降沿触发中断</span></span><br><span class="line">GPIO_PIN_INTR_ANYEGDE     <span class="comment">//3，双沿触发中断</span></span><br><span class="line">GPIO_PIN_INTR_LOLEVEL     <span class="comment">//4，低电平</span></span><br><span class="line">GPIO_PIN_INTR_HILEVEL     <span class="comment">//5，高电平</span></span><br></pre></td></tr></table></figure>
+中断处理函数的流程为：</li>
+<li>（1）清除该中断；</li>
+<li>（2）判断是哪个 IO 触发的中断（当有多个 IO 都配置为中断⽅式时）；</li>
+<li>（3）如果是双沿中断，应该判断此次中断为上升沿中断还是下降沿中断；<br>针对上述例子给出的中断处理函数如下：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">gpio_intr_handle</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Uint16 gpio_status=<span class="number">0</span>;</span><br><span class="line">    gpio_status = GPIO_REG_READ(GPIO_STATUS_ADDRESS);</span><br><span class="line">    GPIO_REG_WRITE(GPIO_STATUS_W1TC_ADDRESS, gpio_status);</span><br><span class="line">    If(gpio_status==GPIO_Pin_12)     <span class="comment">//判断那个IO口中断</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(!GPIO_INPUT_GET(GPIO_ID_PIN(<span class="number">12</span>))) <span class="comment">//判断触发模式是否为下降沿</span></span><br><span class="line">        &#123;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>6.软件定时器<br>软件定时器接⼝位于 <code>/ESP8266_NONOS_SDK/include/osapi.h</code>。以下接⼝使⽤的定时器由软件实现，定时器的函数在任务中被执⾏。因为任务可能被中断，或者被其他⾼优先级的任务延迟，因此以下 <code>os_timer</code> 系列的接⼝并不能保证定时器精确执⾏。如果需要精确的定时，例如，周期性操作某 GPIO，请使⽤硬件中断定时器。</p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>zanzzd</span>
+                    </p>
+                
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();" target="_blank" rel="noopener">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2019/11/22/mongo%20DB%E5%AD%A6%E4%B9%A0/">mongo DB学习</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© zanzzd | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+
+    <!--动态线条背景-->
+    <script type="text/javascript"
+    color="220,220,220" opacity='0.6' zIndex="-2" count="100" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js">
+    </script>
+    <!-- 动态线条背景代码结束 -->
+</body>
+</html>
