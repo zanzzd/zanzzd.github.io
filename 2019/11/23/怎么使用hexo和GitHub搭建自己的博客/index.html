@@ -56,7 +56,7 @@
                 
                     <a class="menu-item" href="/category">categories</a>
                 
-                    <a class="menu-item" href="/tag">tag</a>
+                    <a class="menu-item" href="/tags">tags</a>
                 
                     <a class="menu-item" href="/about">about</a>
                 
@@ -82,7 +82,7 @@
                 
                     <a class="menu-item" href="/category">categories</a>
                 
-                    <a class="menu-item" href="/tag">tag</a>
+                    <a class="menu-item" href="/tags">tags</a>
                 
                     <a class="menu-item" href="/about">about</a>
                 
@@ -108,6 +108,68 @@
             <div class="container">
     
     
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
 
     
     <article class="post-wrap">
@@ -130,7 +192,61 @@
         </header>
 
         <div class="post-content">
-            
+            <blockquote>
+<p>本文安装部署基于Windows操作系统64位</p>
+</blockquote>
+<h3 id="基本环境搭建"><a href="#基本环境搭建" class="headerlink" title="基本环境搭建"></a>基本环境搭建</h3><p>整个博客部署需要使用Git，Node.js环境，所以首先下载安装这两个环境。<br>1.从Git官网下载最新版的Windows安装包，一路默认安装即可；<br>2.从Node.js下载最新版的Windows安装包，注意选择自己操作系统的位数，一路默认安装即可；</p>
+<h3 id="检测环境是否搭建成功"><a href="#检测环境是否搭建成功" class="headerlink" title="检测环境是否搭建成功"></a>检测环境是否搭建成功</h3><p>使用快捷键<code>win+R</code>打开运行窗口，键入cmd回车，打开cmd控制窗口。使用下面的命令检测安装是否成功：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git -version</span><br><span class="line">node -v</span><br><span class="line">npm -v</span><br></pre></td></tr></table></figure>
+
+<h3 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h3><p>1.选择一个磁盘，新建一个文件夹，然后在此文件夹下，右键打开<code>Git Bash Here</code>使用以下命令安装Hexo：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意：对于安装比较慢的时候，建议更换安装源，此处切换到阿里镜像源。<br>使用以下的命令更换安装源：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm config set registry https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
+<p>使用以下命令检查切换安装源是否成功：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm config get registry</span><br></pre></td></tr></table></figure>
+<p>返回<code>https://registry.npm.taobao.org</code>则表示切换安装源成功。</p>
+<p>2.切换到Hexo文件夹下，如果没有此文件夹则新建一个即可，再使用<code>Git Bash Here</code>打开git命令窗口安装部署需要的deployer，命令如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+<h3 id="初始化Hexo"><a href="#初始化Hexo" class="headerlink" title="初始化Hexo"></a>初始化Hexo</h3><p>在上述步骤完成后，使用以下的命令初始化Hexo。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init</span><br></pre></td></tr></table></figure>
+<p>等待安装完成，出现<code>INFO    Start blogging with Hexo</code>字样，则表示hexo初始化成功。</p>
+<p>执行以下命令，可以在本地查看Hexo渲染出网站。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo generate</span><br><span class="line">hexo server</span><br></pre></td></tr></table></figure>
+<p>如果出现下面的字样，则表示启动成功，此时打开浏览器输入以下<code>http://localhost:4000/</code>即可查看效果。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INFO Hexo is running at http://0.0.0.0:4000/. Press Ctrl+C to stop</span><br></pre></td></tr></table></figure>
+
+<h3 id="部署Hexo托管在GitHub上"><a href="#部署Hexo托管在GitHub上" class="headerlink" title="部署Hexo托管在GitHub上"></a>部署Hexo托管在GitHub上</h3><p>1.在GitHub上新建仓库，仓库名必须使用<code>username.github.io</code>的格式命名。</p>
+<p>2.配置ssh密钥，使用GitHub远程链接到此代码仓库。</p>
+<p>2.1使用下面命令生成密钥：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh -keygen -t rsa -C &quot;email@example.com&quot;</span><br><span class="line">//注意：此处一般填写你注册GitHub的邮箱。</span><br></pre></td></tr></table></figure>
+<p>之后的提示可以一路回车按照默认就行。</p>
+<p>2.2使用以下命令将公钥复制到剪贴板上：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">clip &lt; ~/.ssh/id_rsa.pub</span><br></pre></td></tr></table></figure>
+
+<p>2.3打开GitHub设置页面，将公钥添加到公钥列表里。</p>
+<p>2.4使用下面命令，检测Git是否和GitHub通讯成功：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
+<p>若出现以下命令，则表示建立通讯成功：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hi xxxxxx! You&apos;ve successfully authenticated, but GitHub does not provide shell access.</span><br></pre></td></tr></table></figure>
+
+<p>2.5配置git个人信息<br>使用下面的两条命令，配置git上的个人信息：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &quot;your name&quot;</span><br><span class="line">git config --global user.email &quot;your email&quot;</span><br></pre></td></tr></table></figure>
+<p>2.6打开/Hexo/_config.yml，配置以下信息：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># Deployment</span><br><span class="line">## Docs: https://hexo.io/docs/deployment.html</span><br><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repository: git@github.com:zanzzd/上面命名的仓库名.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
+
+<p>3.使用以下命名将Hexo部署到GitHub上：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+<p>4.此时博客已经部署成功了，你可以使用 https://你的用户名.github.io 打开访问自己博客了。</p>
+<p>###新建博客文章<br>使用以下命令可以新建一篇博客：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo n &quot;文章标题&quot;</span><br></pre></td></tr></table></figure>
+<p>目前，可以在 /hexo/source/_posts 目录下打开刚才新建的博文，使用<code>MarkDown</code>格式编辑博文。然后使用下列命令将写好的博文推送到GitHub上：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo clean		//清除之前的推送</span><br><span class="line">hexo g -d 		//将新建的博文推送到服务器上</span><br></pre></td></tr></table></figure>
+
+<h3 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h3><p>到此，整个hexo博客搭建完毕，可以自行更换喜欢的主题，配置一些特殊的小功能，使得整个博客更加美观。</p>
+
         </div>
 
         
