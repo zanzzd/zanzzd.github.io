@@ -210,7 +210,7 @@
 <p>3.<code>PuTTY</code>工具。用于和<code>ESP8266</code>通过串口交互。可以访问<a href="https://www.putty.org/" target="_blank" rel="noopener">PuTTY</a>官网下载对应的版本。</p>
 <h3 id="开发环境搭建"><a href="#开发环境搭建" class="headerlink" title="开发环境搭建"></a>开发环境搭建</h3><p>1.安装上述需要使用的软件，具体安装步骤可以一路选择默认即可。</p>
 <p>2.打开<code>ESPFlashDownloadTool</code>下载工具，把准备好的固件下载到<code>ESP8266</code>中，注意固件下载的地址为0x00000,最好在下载固件之前进行整片程序擦除处理。</p>
-<p>3.打开<code>PuTTY</code>工具，配置参数如下：<br>    修改对应的串口号，修改波特率为115200，数据位为8，停止位为1，无校验位，无流控<br>    <img src="/.com//1.jpg" alt></p>
+<p>3.打开<code>PuTTY</code>工具，配置参数如下：<br>修改对应的串口号，修改波特率为115200，数据位为8，停止位为1，无校验位，无流控<br><img src="https://i.loli.net/2019/11/24/QyVLdhPZ3SXCRcF.png" alt="1.jpg"></p>
 <h3 id="连接WiFi"><a href="#连接WiFi" class="headerlink" title="连接WiFi"></a>连接WiFi</h3><p>1.在交互界面上，可以看到基本的输出信息，此时可以使用以下命令查看帮助。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">help()</span><br></pre></td></tr></table></figure>
 
@@ -224,8 +224,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import webrepl</span><br><span class="line">webrepl.start()</span><br></pre></td></tr></table></figure>
 
 <p>注意：连接时可以通过<code>sta_if.ifconfig()</code>来查看路由器给esp8266分配的IP。</p>
-<h3 id="使用webrepl工具"><a href="#使用webrepl工具" class="headerlink" title="使用webrepl工具"></a>使用webrepl工具</h3><p>1.在浏览器打开官网提供的<code>webrepl</code>工具，修改连接IP地址，点击“connect”连接。</p>
-<p>2.显示“welcome to micropython”字样后，输入密码连接，进入交互模式。</p>
+<h3 id="使用webrepl工具"><a href="#使用webrepl工具" class="headerlink" title="使用webrepl工具"></a>使用webrepl工具</h3><p>1.在浏览器打开官网提供的<code>webrepl</code>工具，修改连接IP地址，点击“connect”连接。<br><img src="https://i.loli.net/2019/11/24/UxRdJEF1hNbOnaM.png" alt="2.jpg"><br>2.显示“welcome to micropython”字样后，输入密码连接，进入交互模式。</p>
 <h3 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h3><h3 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h3><p>micropython官方参考手册：<a href="http://docs.micropython.org/en/latest/index.html" target="_blank" rel="noopener">http://docs.micropython.org/en/latest/index.html</a></p>
 
         </div>
