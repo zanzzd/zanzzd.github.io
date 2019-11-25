@@ -12,7 +12,7 @@
 
 
 
-<title>基于micropython的esp8266环境搭建 | </title>
+<title>基于micropython的esp8266开发——GPIO操作 | </title>
 
 
 
@@ -174,7 +174,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">基于micropython的esp8266环境搭建</h1>
+            <h1 class="post-title">基于micropython的esp8266开发——GPIO操作</h1>
             
                 <div class="post-meta">
                     
@@ -183,16 +183,9 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">十一月 24, 2019&nbsp;&nbsp;0:00:00</a>
+                        Date: <a href="#">十一月 25, 2019&nbsp;&nbsp;21:00:00</a>
                         </span>
                     
-                    
-                        <span class="post-category">
-                    Category:
-                            
-                                <a href="/categories/%E5%9F%BA%E4%BA%8Emicropython%E7%9A%84esp8266%E5%BC%80%E5%8F%91%E7%AC%94%E8%AE%B0/">基于micropython的esp8266开发笔记</a>
-                            
-                        </span>
                     
                 </div>
             
@@ -200,33 +193,22 @@
 
         <div class="post-content">
             <blockquote>
-<p>本文基于Windows10操作系统，使用micropython搭建esp8266的开发环境。根据官方<a href="http://docs.micropython.org/en/latest/esp8266/quickref.html" target="_blank" rel="noopener">快速入门手册</a>进行整个开发环境的搭建和测试。</p>
+<p>上一章节完成了基本使用环境的搭建。在这篇文章里，将介绍基本的GPIO口操作。</p>
 </blockquote>
-<h3 id="开发环境准备"><a href="#开发环境准备" class="headerlink" title="开发环境准备"></a>开发环境准备</h3><blockquote>
-<p><code>micropython</code>推出了<code>esp8266</code>的开发环境部署，在<code>esp8266</code>中下载相对应的固件之后，就可以使用<code>python</code>进行<code>esp8266</code>的开发了。</p>
-</blockquote>
-<p>需要准备的工具如下：<br>1.ESP8266开发板。推荐使用nodeMCU开发板；</p>
-<p>2.<code>ESPFlashDownloadTool</code>工具。用于固件下载，可以访问<a href="https://www.espressif.com/zh-hans/support/download/other-tools" target="_blank" rel="noopener">乐鑫</a>官网下载；</p>
-<p>3.<code>PuTTY</code>工具。用于和<code>ESP8266</code>通过串口交互。可以访问<a href="https://www.putty.org/" target="_blank" rel="noopener">PuTTY</a>官网下载对应的版本。</p>
-<h3 id="开发环境搭建"><a href="#开发环境搭建" class="headerlink" title="开发环境搭建"></a>开发环境搭建</h3><p>1.安装上述需要使用的软件，具体安装步骤可以一路选择默认即可。</p>
-<p>2.打开<code>ESPFlashDownloadTool</code>下载工具，把准备好的固件下载到<code>ESP8266</code>中，注意固件下载的地址为0x00000,最好在下载固件之前进行整片程序擦除处理。</p>
-<p>3.打开<code>PuTTY</code>工具，配置参数如下：<br>修改对应的串口号，修改波特率为115200，数据位为8，停止位为1，无校验位，无流控<br><img src="https://i.loli.net/2019/11/24/QyVLdhPZ3SXCRcF.png" alt="1.jpg"></p>
-<h3 id="连接WiFi"><a href="#连接WiFi" class="headerlink" title="连接WiFi"></a>连接WiFi</h3><p>1.在交互界面上，可以看到基本的输出信息，此时可以使用以下命令查看帮助。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">help()</span><br></pre></td></tr></table></figure>
+<h3 id="开发平台"><a href="#开发平台" class="headerlink" title="开发平台"></a>开发平台</h3><p>开发使用的是nodeMCU开发板，板上自带了两个LED灯，分别与GPIO2和GPIO16连接，并且FLASH按键与GPIO0相连。具体电路图请百度自行查找。</p>
+<h3 id="使用的库介绍"><a href="#使用的库介绍" class="headerlink" title="使用的库介绍"></a>使用的库介绍</h3><p><code>machine</code>库包含硬件相关的函数定义。<br>    <code>Pin</code>提供了<code>esp8266</code>可以使用的GPIO，为以下：0、1、2、3、4、5、12、13、14、15、16 。注意GPIO1和GPIO3为REPL串口的TX和RX引脚，GPIO16与唤醒模块有关。</p>
+<p><code>time</code>库包含与延时相关的函数定义。<br>    <code>sleep</code>提供了延时相关的函数，可以用于秒级、毫秒级、微秒级延时。</p>
+<h3 id="实例程序"><a href="#实例程序" class="headerlink" title="实例程序"></a>实例程序</h3><p>1.打开与GPIO2相连的LED灯。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">from machine import Pin</span><br><span class="line">p2 = Pin(2, Pin.OUT)        #设置GPIO2为输出模式</span><br><span class="line">p2.value(0)                 #打开LED灯</span><br></pre></td></tr></table></figure>
 
-<p>然后，可以看到帮助信息。这时，可以跟随提示的基本网络连接命令连接到WiFi上。命令如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import network</span><br><span class="line">sta_if = network.WLAN(network.STA_IF)</span><br><span class="line">sta_if.active(True)</span><br><span class="line">sta_if.scan()                             # Scan for available access points</span><br><span class="line">sta_if.connect(&quot;&lt;AP_name&gt;&quot;, &quot;&lt;password&gt;&quot;) # Connect to an AP</span><br><span class="line">sta_if.isconnected()                      # Check for successful</span><br></pre></td></tr></table></figure>
+<p>2.让与GPIO2相连的LED以2Hz的频率闪烁10次。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">from machine import Pin</span><br><span class="line">import time</span><br><span class="line">p2 = Pin(2, Pin.OUT)        #设置GPIO2为输出模式</span><br><span class="line"></span><br><span class="line">for i in range(10):</span><br><span class="line">    p2.value(0)                 #打开LED灯</span><br><span class="line">    time.sleep_ms(500)          #延时500毫秒</span><br><span class="line">    p2.value(1)                 #关闭LED灯</span><br><span class="line">    time.sleep_ms(500)          #延时500毫秒</span><br></pre></td></tr></table></figure>
 
-<p>2.使用<code>micropython</code>官方提供的<code>webrepl</code>文件管理工具来管理文件。通过浏览器访问<a href="http://micropython.org/webrepl/" target="_blank" rel="noopener">webrepl客户端工具</a>登录到<code>esp8266</code>上来管理文件。</p>
-<p>首先，需要使用下面的命令配置<code>webrepl</code>:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import webrepl_setup</span><br></pre></td></tr></table></figure>
-<p>按照提示配置相对应的信息，注意配置的密码长度至少3位。然后，使用下面的命令，启动<code>webrepl</code>。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import webrepl</span><br><span class="line">webrepl.start()</span><br></pre></td></tr></table></figure>
+<h3 id="完整程序"><a href="#完整程序" class="headerlink" title="完整程序"></a>完整程序</h3><p>下面的程序可以直接保存为<code>main.py</code>文件，使用<code>webrepl</code>上传到模块里实现重启后依旧可以运行。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">from machine import Pin</span><br><span class="line">import time</span><br><span class="line">p2 = Pin(2, Pin.OUT)        #设置GPIO2为输出模式</span><br><span class="line"></span><br><span class="line">def main():</span><br><span class="line">    p2.value(0)                 #打开LED灯</span><br><span class="line">    time.sleep_ms(500)          #延时500毫秒</span><br><span class="line">    p2.value(1)                 #关闭LED灯</span><br><span class="line">    time.sleep_ms(500)          #延时500毫秒</span><br><span class="line"></span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
 
-<p>注意：连接时可以通过<code>sta_if.ifconfig()</code>来查看路由器给esp8266分配的IP。</p>
-<h3 id="使用webrepl工具"><a href="#使用webrepl工具" class="headerlink" title="使用webrepl工具"></a>使用webrepl工具</h3><p>1.在浏览器打开官网提供的<code>webrepl</code>工具，修改连接IP地址，点击“connect”连接。<br><img src="https://i.loli.net/2019/11/24/UxRdJEF1hNbOnaM.png" alt="2.jpg"><br>2.显示“welcome to micropython”字样后，输入密码连接，进入交互模式。</p>
-<h3 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h3><p>整个开发环境的搭建过程大概需要十几分钟，如遇到问题，请搜索问题原因解决或者参考官方使用文档。</p>
-<h3 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h3><p>micropython官方参考手册：<a href="http://docs.micropython.org/en/latest/index.html" target="_blank" rel="noopener">http://docs.micropython.org/en/latest/index.html</a></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>使用micropython进行编程时，其语法与完整的python基本保持一致，请注意语法格式。另外，对于延时函数还有<code>time.sleep(s)</code>为秒级延时、<code>time_sleep_us(us)</code>为微秒级延时。</p>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><p>如有任何问题，可以联系作者 <a href="mailto:zanzzd@163.com" target="_blank" rel="noopener">zanzzd@163.com</a> 进行咨询，谢谢。</p>
 
         </div>
 
@@ -270,10 +252,8 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2019/11/25/%E5%9F%BA%E4%BA%8Emicropython%E7%9A%84esp8266%E5%BC%80%E5%8F%91%E2%80%94%E2%80%94GPIO%E6%93%8D%E4%BD%9C/">基于micropython的esp8266开发——GPIO操作</a>
             
-            
-            <a class="next" rel="next" href="/2019/11/23/%E6%80%8E%E4%B9%88%E4%BD%BF%E7%94%A8hexo%E5%92%8CGitHub%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2/">怎么使用hexo和GitHub搭建自己的博客</a>
+            <a class="next" rel="next" href="/2019/11/24/%E5%9F%BA%E4%BA%8Emicropython%E7%9A%84esp8266%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">基于micropython的esp8266环境搭建</a>
             
         </section>
 
