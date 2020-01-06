@@ -12,7 +12,7 @@
 
 
 
-<title>python 虚拟环境创建和使用 | </title>
+<title>Django使用django-qr-code为网页生成二维码 | </title>
 
 
 
@@ -174,7 +174,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">python 虚拟环境创建和使用</h1>
+            <h1 class="post-title">Django使用django-qr-code为网页生成二维码</h1>
             
                 <div class="post-meta">
                     
@@ -183,7 +183,7 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">一月 5, 2020&nbsp;&nbsp;23:59:59</a>
+                        Date: <a href="#">一月 6, 2020&nbsp;&nbsp;22:33:08</a>
                         </span>
                     
                     
@@ -193,22 +193,36 @@
 
         <div class="post-content">
             <blockquote>
-<p>python虚拟环境的使用可以更好的避免各个项目的插件冲突或者插件安装太多不好管理的状况，使用虚拟环境可以很好的解决这个问题。在这篇博客介绍使用virtualenv这一虚拟环境的使用。</p>
+<p>使用Django开发网站，有时候需要在线生成二维码，在此处找到一个<code>Django app</code>，可以很快的在网页中生成二维码。</p>
 </blockquote>
-<h3 id="安装虚拟环境"><a href="#安装虚拟环境" class="headerlink" title="安装虚拟环境"></a>安装虚拟环境</h3><p>在Windows环境下，可以使用<code>pip</code>安装。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; pip install virtualenv</span><br></pre></td></tr></table></figure>
-<h3 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h3><p>1.创建虚拟环境，使用下面的基本命令创建：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; virtualenv [path]</span><br></pre></td></tr></table></figure>
-<p>其中，<code>[path]</code>为创建虚拟环境的路径。</p>
-<p>2.激活虚拟环境<br>在Windows平台，可以使用<code>Command Prompt</code>或者<code>Powershell</code>工具，使用下面的命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; [path]\Scripts\activate</span><br></pre></td></tr></table></figure>
+<h3 id="安装环境"><a href="#安装环境" class="headerlink" title="安装环境"></a>安装环境</h3><p>最简单的安装方法是使用<code>Pypi</code>安装：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;pip install django-qr-code</span><br></pre></td></tr></table></figure>
 
-<p>2.退出虚拟环境<br>和激活虚拟环境一样，只需要使用以下的命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; [path]\Scripts\deactivate</span><br></pre></td></tr></table></figure>
-
-<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><p>1.创建虚拟环境使用的系统安装的python版本，也安装了<code>pip</code>工具，需要重新安装其他的轮子。</p>
-<p>2.有任何问题请联系 <a href="mailto:zanzzd@163.com" target="_blank" rel="noopener">zanzzd@163.com</a> 。</p>
-<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><p>官网资料： <a href="https://virtualenv.pypa.io/" target="_blank" rel="noopener">https://virtualenv.pypa.io/</a></p>
+<h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><p>首先需要把<code>qr_code</code>加到你<code>Django</code>项目中的设置里：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">INSTALLED_APPS = (</span><br><span class="line">	...,</span><br><span class="line">	&apos;qr_code&apos;,</span><br><span class="line">	)</span><br></pre></td></tr></table></figure>
+<p>接下来，需要在模板中加载这个应用程序提供的标签：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% load qr_code %&#125;</span><br></pre></td></tr></table></figure>
+<p>下面介绍一个简单使用例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% qr_from_text &quot;Hello World!&quot; size=&quot;m&quot; image_format=&quot;png&quot; error_correction=&quot;L&quot; %&#125;</span><br></pre></td></tr></table></figure>
+<p>此例子可以在网页相对应的位置显示字符串<code>Hello World!</code>的二维码。例子中的<code>size</code>标签限定了二维码的大小，<code>error_correction</code>标签限定了二维码的容错率。</p>
+<p>其中，<code>size</code>标签可以用数字限定，也可以使用范围字母限定，有以下：</p>
+<ul>
+<li>t or T: tiny (value: 6)</li>
+<li>s or S: small (value: 12)</li>
+<li>m or M: medium (value: 18)</li>
+<li>l or L: large (value: 30)</li>
+<li>h or H: huge (value: 48)</li>
+</ul>
+<p><code>error_correction</code>也可以用以下的来限定：</p>
+<ul>
+<li>l or L: error correction level L – up to 7% damage</li>
+<li>m or M: error correction level M – up to 15% damage</li>
+<li>q or Q: error correction level Q – up to 25% damage</li>
+<li>h or H: error correction level H – up to 30% damage </li>
+</ul>
+<p>其他的例子请参考官方资料。</p>
+<h3 id="官方资料"><a href="#官方资料" class="headerlink" title="官方资料"></a>官方资料</h3><p>1.文档地址：<a href="https://django-qr-code.readthedocs.io/" target="_blank" rel="noopener">https://django-qr-code.readthedocs.io/</a></p>
+<p>2.GitHub地址：<a href="https://github.com/dprog-philippe-docourt/django-qr-code" target="_blank" rel="noopener">https://github.com/dprog-philippe-docourt/django-qr-code</a></p>
 
         </div>
 
@@ -239,9 +253,9 @@
                     
                         <a href="/tags/python/"># python</a>
                     
-                        <a href="/tags/Django/"># Django</a>
+                        <a href="/tags/django-qr-code/"># django-qr-code</a>
                     
-                        <a href="/tags/virtualenv/"># virtualenv</a>
+                        <a href="/tags/Django/"># Django</a>
                     
                         
                 </span>
@@ -254,10 +268,8 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2020/01/06/Django%E4%BD%BF%E7%94%A8django-qr-code%E4%B8%BA%E7%BD%91%E9%A1%B5%E7%94%9F%E6%88%90%E4%BA%8C%E7%BB%B4%E7%A0%81/">Django使用django-qr-code为网页生成二维码</a>
             
-            
-            <a class="next" rel="next" href="/2019/11/26/%E5%9F%BA%E4%BA%8Emicropython%E7%9A%84esp8266%E5%BC%80%E5%8F%91%E2%80%94%E2%80%94%E4%B8%AD%E6%96%AD/">基于micropython的esp8266开发——中断</a>
+            <a class="next" rel="next" href="/2020/01/05/python-%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83%E5%88%9B%E5%BB%BA%E5%92%8C%E4%BD%BF%E7%94%A8/">python 虚拟环境创建和使用</a>
             
         </section>
 
